@@ -6,7 +6,7 @@ import ru.aston.sort_app.view.MenuView;
 import java.util.Scanner;
 
 public class MainMenu implements MenuView {
-    private final  Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     @Override
     public void showMenu() {
         System.out.println("Меню");
@@ -15,7 +15,6 @@ public class MainMenu implements MenuView {
         System.out.println("3 - Найти элемент");
         System.out.println("4 - Сохранить данные в файл");
         System.out.println("5 - Выйти из программы");
-
     }
 
     @Override

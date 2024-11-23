@@ -13,8 +13,7 @@ public class SearchMenu implements MenuView {
         System.out.println("1 - Машина");
         System.out.println("2 - Книга");
         System.out.println("3 - Корнеплод");
-        System.out.println("4 - Выйти из программы");
-
+        System.out.println("4 - Вернуться в меню");
     }
 
     @Override
