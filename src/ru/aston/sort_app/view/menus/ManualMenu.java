@@ -2,6 +2,7 @@ package ru.aston.sort_app.view.menus;
 
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.view.MenuView;
+import ru.aston.sort_app.view.UserInputValidation;
 
 import java.util.Scanner;
 
@@ -19,11 +20,11 @@ public class ManualMenu implements MenuView {
     @Override
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
-        return switch (scanner.next().trim()){
-            case "1" -> UserInputChoice.CAR_MANUAL;
-            case "2" -> UserInputChoice.BOOK_MANUAL;
-            case "3" -> UserInputChoice.ROOTCROP_MANUAL;
-            case "4" -> UserInputChoice.BACK_MENU;
+        return switch (UserInputValidation.InValidation(4)){
+            case 1 -> UserInputChoice.CAR_MANUAL;
+            case 2 -> UserInputChoice.BOOK_MANUAL;
+            case 3 -> UserInputChoice.ROOTCROP_MANUAL;
+            case 4 -> UserInputChoice.BACK_MENU;
             default -> null;
         };
     }

@@ -1,6 +1,8 @@
 package ru.aston.sort_app.core;
 
 public enum UserInputChoice {
+    MENU_MAIN,
+
     ADD_DATA,
     USER_GENERATED,
     CAR_MANUAL,
@@ -16,21 +18,6 @@ public enum UserInputChoice {
     CAR_FILE,
     BOOK_FILE,
     ROOTCROP_FILE,
-
-
-    CAR_POWER,
-    CAR_MODEL,
-    CAR_YEAR,
-
-    BOOK_AUTHOR,
-    BOOK_TITLE,
-    BOOK_PAGE_COUNT,
-
-    ROOTCROP_TYPE,
-    ROOTCROP_WEIGHT,
-    ROOTCROP_COLOR,
-
-    STOP_SORT,
     SEARCH,
     CAR_SEARCH,
     BOOK_SEARCH,
@@ -42,7 +29,6 @@ public enum UserInputChoice {
     ROOTCROP_SORT,
 
     BACK_MENU,
-    BACK,
 
     SAVE_DATA,
     EXIT
