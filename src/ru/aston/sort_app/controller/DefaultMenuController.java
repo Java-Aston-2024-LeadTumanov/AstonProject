@@ -4,6 +4,7 @@ import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.view.MenuView;
 import ru.aston.sort_app.view.MessagePrinter;
 
+import java.io.Console;
 import java.util.Map;
 
 public class DefaultMenuController implements MenuController {
@@ -19,6 +20,7 @@ public class DefaultMenuController implements MenuController {
         this.messagePrinter = messagePrinter;
         this.menus = menus;
         this.actions = actions;
+
     }
 
     @Override
@@ -33,7 +35,7 @@ public class DefaultMenuController implements MenuController {
             }
             else if (actions.containsKey(choice)) {
                 actions.get(choice).execute();
-                menuView=menus.get(UserInputChoice.MAIN);
+                menuView=menus.get(UserInputChoice.MENU_MAIN);
             } else {
                 messagePrinter.printMessage("Неверный выбор. Попробуйте снова.");
             }
