@@ -17,7 +17,7 @@ public class GenerateBook implements MenuAction {
 
     @Override
     public void execute(UserInputChoice choice) {
-        bookService.generate(choice); // Генерация книг
+        bookService.generate(choice);
         messagePrinter.printMessage("Данные успешно добавлены в коллекцию");
     }
 }
