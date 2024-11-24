@@ -1,8 +1,14 @@
+package ru.aston.sort_app;
+
 import ru.aston.sort_app.controller.DefaultMenuController;
 import ru.aston.sort_app.controller.MenuAction;
 import ru.aston.sort_app.controller.MenuController;
+import ru.aston.sort_app.controller.actions.GenerateCar;
 import ru.aston.sort_app.core.UserInputChoice;
+import ru.aston.sort_app.services.CarService;
+import ru.aston.sort_app.view.ConsolePrinter;
 import ru.aston.sort_app.view.MenuView;
+import ru.aston.sort_app.view.MessagePrinter;
 import ru.aston.sort_app.view.menus.*;
 
 import java.util.HashMap;
@@ -10,16 +16,22 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<UserInputChoice, MenuView> menus = new HashMap<>();
-        Map<UserInputChoice, MenuAction> actions = new HashMap<>();
-        menus.put(UserInputChoice.MENU_MAIN, new MainMenu());
-        menus.put(UserInputChoice.ADD_DATA, new AddMenu());
-        menus.put(UserInputChoice.SEARCH, new SearchMenu());
-        menus.put(UserInputChoice.SORT, new SortMenu());
-        menus.put(UserInputChoice.FILE_GENERATED, new FileMenu());
-        menus.put(UserInputChoice.USER_GENERATED, new MainMenu());
-        menus.put(UserInputChoice.RANDOM_GENERATION, new GenerateMenu());
 
+        MessagePrinter messagePrinter = new ConsolePrinter();
+//        CarService carService = new CarService();
+//        GenerateCar generateCar = new GenerateCar(messagePrinter, carService);
+
+        Map<UserInputChoice, MenuView> menus = new HashMap<>();
+        menus.put(UserInputChoice.MENU_MAIN, new MainMenu());
+        menus.put(UserInputChoice.MENU_ADD_DATA, new AddMenu());
+        menus.put(UserInputChoice.MENU_SEARCH, new SearchMenu());
+        menus.put(UserInputChoice.MENU_SORT, new SortMenu());
+        menus.put(UserInputChoice.MENU_FILE_GENERATED, new FileMenu());
+        menus.put(UserInputChoice.MENU_USER_GENERATED, new MainMenu());
+        menus.put(UserInputChoice.MENU_RANDOM_GENERATION, new GenerateMenu());
+
+        Map<UserInputChoice, MenuAction> actions = new HashMap<>();
+//        actions.put(UserInputChoice.ACTION_CAR_FILE_GENERATED, generateCar);
 //        actions.put(UserInputChoice.CAR_SORT, new AddMenu());
 //        actions.put(UserInputChoice.BOOK_SORT, new MainMenu());
 //        actions.put(UserInputChoice.ROOTCROP_SORT, new SearchMenu());
@@ -39,8 +51,9 @@ public class Main {
 //        actions.put(UserInputChoice.RANDOM_GENERATION, new GenerateMenu());
 //        actions.put(UserInputChoice.EXIT, new GenerateMenu());
 
-        MenuView mainMenuView = new MainMenu();
-        MenuController mainMenuController = new DefaultMenuController(mainMenuView, menus, actions);
-        mainMenuController.handleMenu();
+
+
+        MenuController defaultMenuController = new DefaultMenuController(messagePrinter, menus, actions);
+        defaultMenuController.handleMenu();
     }
 }

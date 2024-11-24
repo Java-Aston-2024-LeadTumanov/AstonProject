@@ -21,9 +21,9 @@ public class ManualMenu implements MenuView {
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
         return switch (UserInputValidation.InValidation(4)){
-            case 1 -> UserInputChoice.CAR_MANUAL;
-            case 2 -> UserInputChoice.BOOK_MANUAL;
-            case 3 -> UserInputChoice.ROOTCROP_MANUAL;
+            case 1 -> UserInputChoice.ACTION_CAR_MANUAL_GENERATED;
+            case 2 -> UserInputChoice.ACTIN_BOOK_MANUAL_GENERATED;
+            case 3 -> UserInputChoice.ACTION_ROOTCROP_MANUAL_GENERATED;
             case 4 -> UserInputChoice.BACK_MENU;
             default -> null;
         };

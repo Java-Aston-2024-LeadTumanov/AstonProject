@@ -21,9 +21,9 @@ public class SearchMenu implements MenuView {
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
         return switch (UserInputValidation.InValidation(4)){
-            case 1 -> UserInputChoice.CAR_SEARCH;
-            case 2 -> UserInputChoice.BOOK_SEARCH;
-            case 3 -> UserInputChoice.ROOTCROP_SEARCH;
+            case 1 -> UserInputChoice.ACTION_CAR_SEARCH;
+            case 2 -> UserInputChoice.ACTION_BOOK_SEARCH;
+            case 3 -> UserInputChoice.ACTION_ROOTCROP_SEARCH;
             case 4 -> UserInputChoice.BACK_MENU;
             default -> null;
         };

@@ -22,10 +22,10 @@ public class MainMenu implements MenuView {
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
         return switch (UserInputValidation.InValidation(5)){
-            case 1 -> UserInputChoice.ADD_DATA;
-            case 2 -> UserInputChoice.SORT;
-            case 3 -> UserInputChoice.SEARCH;
-            case 4 -> UserInputChoice.SAVE_DATA;
+            case 1 -> UserInputChoice.MENU_ADD_DATA;
+            case 2 -> UserInputChoice.MENU_SORT;
+            case 3 -> UserInputChoice.MENU_SEARCH;
+            case 4 -> UserInputChoice.ACTION_SAVE_DATA;
             case 5 -> UserInputChoice.EXIT;
             default -> null;
         };
