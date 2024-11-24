@@ -4,22 +4,31 @@ import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.dao.FileDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CarService   implements Generator<Car>, SearchStrategy<Car>, SortStrategy<Car> {
-    private final FileDAO fileDao;
+public class CarService implements Generator<Car>, SearchStrategy<Car>, SortStrategy<Car> {
+    private final FileDAO<Car> fileDao;
 
     public CarService(FileDAO fileDao) {
         this.fileDao = fileDao;
     }
 
-    public List<Car> generate(UserInputChoice generateType) {
-        switch (generateType){
+    @Override
+    public List<Car> generate(UserInputChoice generateType, int size) {
+        List<Car> cars = new ArrayList<>();
+        switch (generateType) {
             case UserInputChoice.ACTION_CAR_FILE_GENERATED:
-                fileDao.read();
+                cars = fileDao.get(size);
+                break;
+            case UserInputChoice.ACTION_BOOK_RANDOM_GENERATED:
+                //вызов метода для генерации
+                break;
+            case UserInputChoice.ACTION_CAR_MANUAL_GENERATED:
+                //вызов метода для генерации
                 break;
         }
-        return List.of();
+        return cars;
     }
 
     @Override

@@ -4,22 +4,29 @@ import ru.aston.sort_app.controller.DefaultMenuController;
 import ru.aston.sort_app.controller.MenuAction;
 import ru.aston.sort_app.controller.MenuController;
 import ru.aston.sort_app.controller.actions.GenerateCar;
+import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
+import ru.aston.sort_app.dao.CarFileDAO;
+import ru.aston.sort_app.dao.FileDAO;
 import ru.aston.sort_app.services.CarService;
 import ru.aston.sort_app.view.ConsolePrinter;
 import ru.aston.sort_app.view.MenuView;
 import ru.aston.sort_app.view.MessagePrinter;
 import ru.aston.sort_app.view.menus.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
 
+        List<Car> cars = new ArrayList<>();
         MessagePrinter messagePrinter = new ConsolePrinter();
-//        CarService carService = new CarService();
-//        GenerateCar generateCar = new GenerateCar(messagePrinter, carService);
+        FileDAO<Car> carFileDAO = new CarFileDAO();
+        CarService carService = new CarService(carFileDAO);
+        GenerateCar generateCar = new GenerateCar(messagePrinter, carService, cars);
 
         Map<UserInputChoice, MenuView> menus = new HashMap<>();
         menus.put(UserInputChoice.MENU_MAIN, new MainMenu());
@@ -31,7 +38,7 @@ public class Main {
         menus.put(UserInputChoice.MENU_RANDOM_GENERATION, new GenerateMenu());
 
         Map<UserInputChoice, MenuAction> actions = new HashMap<>();
-//        actions.put(UserInputChoice.ACTION_CAR_FILE_GENERATED, generateCar);
+        actions.put(UserInputChoice.ACTION_CAR_FILE_GENERATED, generateCar);
 //        actions.put(UserInputChoice.CAR_SORT, new AddMenu());
 //        actions.put(UserInputChoice.BOOK_SORT, new MainMenu());
 //        actions.put(UserInputChoice.ROOTCROP_SORT, new SearchMenu());
