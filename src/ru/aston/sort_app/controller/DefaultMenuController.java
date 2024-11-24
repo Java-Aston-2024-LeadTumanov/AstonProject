@@ -1,37 +1,46 @@
 package ru.aston.sort_app.controller;
 
-import ru.aston.sort_app.services.CarService;
-import ru.aston.sort_app.view.MenuView;
 import ru.aston.sort_app.core.UserInputChoice;
+import ru.aston.sort_app.view.MenuView;
+import ru.aston.sort_app.view.MessagePrinter;
 
 import java.util.Map;
 
 public class DefaultMenuController implements MenuController {
-    private final MenuView view;
-    private final Map<UserInputChoice, MenuAction> mapChoice;
-    private final CarService carService;
 
-    public DefaultMenuController(MenuView view, Map<UserInputChoice, MenuAction> mapChoice, CarService carService) {
-        this.view = view;
-        this.mapChoice = mapChoice;
-        this.carService = carService;
+    private final MessagePrinter messagePrinter;
+    private final Map<UserInputChoice, MenuView> menus;
+    private final Map<UserInputChoice, MenuAction> actions;
+
+    private  MenuView menuView;
+
+    public DefaultMenuController(MenuView menuView, MessagePrinter messagePrinter, Map<UserInputChoice, MenuView> menus, Map<UserInputChoice, MenuAction> actions) {
+        this.menuView = menuView;
+        this.messagePrinter = messagePrinter;
+        this.menus = menus;
+        this.actions = actions;
     }
 
     @Override
     public void handleMenu() {
-        while (true) {
-            view.showMenu();
-            UserInputChoice choice = view.getUserInputChoice();
-//            1. Ввести данные вручную
-//            2. Загрузить данные из файла
-//            3. Сгенерировать случайные данные
-//            4. Выполнить сортировку
-//            5. Найти элемент
-//            6. Сохранить данные в файл
-//            7. Выйти из программы
-            switch (choice) {
-                default:
+        UserInputChoice choice;
+        do {
+            menuView.showMenu();
+            choice = menuView.getUserInputChoice();
+
+            if(menus.containsKey(choice)){
+                menuView= menus.get(choice);
             }
-        }
+            else if (actions.containsKey(choice)) {
+                actions.get(choice).execute();
+                menuView=menus.get(UserInputChoice.MAIN);
+            } else {
+                messagePrinter.printMessage("Неверный выбор. Попробуйте снова.");
+            }
+        } while (choice != UserInputChoice.EXIT);
+
+        messagePrinter.printMessage(("Программа завершена."));
     }
 }
+
+
