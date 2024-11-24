@@ -21,10 +21,10 @@ public class AddMenu implements MenuView {
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
         return switch (UserInputValidation.InValidation(5)){
-            case 1 -> UserInputChoice.USER_GENERATED;
-            case 2 -> UserInputChoice.FILE_GENERATED;
-            case 3 -> UserInputChoice.RANDOM_GENERATION;
-            case 4 -> UserInputChoice.BACK_MENU;
+            case 1 -> UserInputChoice.MENU_USER_GENERATED;
+            case 2 -> UserInputChoice.MENU_FILE_GENERATED;
+            case 3 -> UserInputChoice.MENU_RANDOM_GENERATION;
+            case 4 -> UserInputChoice.MENU_MAIN;
             default -> null;
         };
     }

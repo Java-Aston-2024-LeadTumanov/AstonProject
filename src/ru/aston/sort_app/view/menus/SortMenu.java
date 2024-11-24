@@ -21,9 +21,9 @@ public class SortMenu implements MenuView {
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
         return switch (UserInputValidation.InValidation(5)){
-            case 1 -> UserInputChoice.CAR_SORT;
-            case 2 -> UserInputChoice.BOOK_SORT;
-            case 3 -> UserInputChoice.ROOTCROP_SORT;
+            case 1 -> UserInputChoice.ACTION_CAR_SORT;
+            case 2 -> UserInputChoice.ACTION_BOOK_SORT;
+            case 3 -> UserInputChoice.ACTION_ROOTCROP_SORT;
             case 4 -> UserInputChoice.BACK_MENU;
             default -> null;
         };

@@ -15,8 +15,8 @@ public class DefaultMenuController implements MenuController {
 
     private  MenuView menuView;
 
-    public DefaultMenuController(MenuView menuView, MessagePrinter messagePrinter, Map<UserInputChoice, MenuView> menus, Map<UserInputChoice, MenuAction> actions) {
-        this.menuView = menuView;
+    public DefaultMenuController(MessagePrinter messagePrinter, Map<UserInputChoice, MenuView> menus, Map<UserInputChoice, MenuAction> actions) {
+        this.menuView = menus.get(UserInputChoice.MENU_MAIN);
         this.messagePrinter = messagePrinter;
         this.menus = menus;
         this.actions = actions;
@@ -34,7 +34,7 @@ public class DefaultMenuController implements MenuController {
                 menuView= menus.get(choice);
             }
             else if (actions.containsKey(choice)) {
-                actions.get(choice).execute();
+                actions.get(choice).execute(choice);
                 menuView=menus.get(UserInputChoice.MENU_MAIN);
             } else {
                 messagePrinter.printMessage("Неверный выбор. Попробуйте снова.");

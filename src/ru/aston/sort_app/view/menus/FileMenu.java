@@ -21,10 +21,10 @@ public class FileMenu implements MenuView {
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
         return switch (UserInputValidation.InValidation(4)){
-            case 1 -> UserInputChoice.CAR_FILE;
-            case 2 -> UserInputChoice.BOOK_FILE;
-            case 3 -> UserInputChoice.ROOTCROP_FILE;
-            case 4 -> UserInputChoice.BACK_MENU;
+            case 1 -> UserInputChoice.ACTION_CAR_FILE_GENERATED;
+            case 2 -> UserInputChoice.ACTION_BOOK_FILE_GENERATED;
+            case 3 -> UserInputChoice.ACTION_ROOTCROP_FILE_GENERATED;
+            case 4 -> UserInputChoice.MENU_ADD_DATA;
             default -> null;
         };
     }
