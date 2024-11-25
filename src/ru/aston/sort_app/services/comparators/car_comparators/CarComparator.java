@@ -11,6 +11,9 @@ public class CarComparator implements Comparator<Car> {
 
     @Override
     public int compare(Car car1, Car car2) {
-        return carPowerComparator.thenComparing(carModelComparator).thenComparing(carYearComparator).compare(car1, car2);
+        return carPowerComparator
+                .thenComparing(carModelComparator)
+                .thenComparing(carYearComparator)
+                .compare(car1, car2);
     }
 }
