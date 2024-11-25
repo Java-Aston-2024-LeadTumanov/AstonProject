@@ -12,7 +12,6 @@ public class ShellSort<T> implements SortStrategy<T> {
     @Override
     public void sort(ArrayList<T> array) {
         int size = array.size(), d = size / 2;
-        //TODO Доделать
         while (d >= 1) {
             for (int i = d; i < size; i++) {
                 for (int j = i; j >= d; j -= d) {
