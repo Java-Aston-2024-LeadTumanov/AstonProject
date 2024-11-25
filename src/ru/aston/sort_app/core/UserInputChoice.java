@@ -29,7 +29,6 @@ public enum UserInputChoice {
     ACTION_BOOK_SORT,
     ACTION_ROOTCROP_SORT,
 
-    BACK_MENU,
     ACTION_SAVE_DATA,
     EXIT
 

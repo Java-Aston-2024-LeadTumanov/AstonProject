@@ -29,7 +29,7 @@ public class Main {
         menus.put(UserInputChoice.MENU_SEARCH, new SearchMenu());
         menus.put(UserInputChoice.MENU_SORT, new SortMenu());
         menus.put(UserInputChoice.MENU_FILE_GENERATED, new FileMenu());
-        menus.put(UserInputChoice.MENU_USER_GENERATED, new MainMenu());
+        menus.put(UserInputChoice.MENU_USER_GENERATED, new ManualMenu());
         menus.put(UserInputChoice.MENU_RANDOM_GENERATION, new GenerateMenu());
 
         Map<UserInputChoice, MenuAction> actions = new HashMap<>();
