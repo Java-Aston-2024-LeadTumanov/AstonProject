@@ -1,7 +1,4 @@
 package ru.aston.sort_app.core;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Comparator;
 
 
