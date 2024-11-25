@@ -14,7 +14,7 @@ public class ManualMenu implements MenuView {
         System.out.println("1 - Машина");
         System.out.println("2 - Книга");
         System.out.println("3 - Корнеплод");
-        System.out.println("4 - Вернуться в меню");
+        System.out.println("4 - Вернуться назад");
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ManualMenu implements MenuView {
             case 1 -> UserInputChoice.ACTION_CAR_MANUAL_GENERATED;
             case 2 -> UserInputChoice.ACTIN_BOOK_MANUAL_GENERATED;
             case 3 -> UserInputChoice.ACTION_ROOTCROP_MANUAL_GENERATED;
-            case 4 -> UserInputChoice.BACK_MENU;
+            case 4 -> UserInputChoice.MENU_ADD_DATA;
             default -> null;
         };
     }
