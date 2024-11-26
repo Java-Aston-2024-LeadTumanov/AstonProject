@@ -2,16 +2,17 @@ package ru.aston.sort_app.services;
 
 import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
-import ru.aston.sort_app.dao.FileDAO;
+import ru.aston.sort_app.dao.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarService implements Generator<Car>, SearchStrategy<Car>, SortStrategy<Car> {
-    private final FileDAO<Car> fileDao;
+    private final DAO<Car> dao;
 
-    public CarService(FileDAO fileDao) {
-        this.fileDao = fileDao;
+
+    public CarService(DAO dao) {
+        this.dao = dao;
     }
 
     @Override
@@ -19,13 +20,13 @@ public class CarService implements Generator<Car>, SearchStrategy<Car>, SortStra
         List<Car> cars = new ArrayList<>();
         switch (generateType) {
             case UserInputChoice.ACTION_CAR_FILE_GENERATED:
-                cars = fileDao.get(size);
+                cars = dao.get(size);
                 break;
-            case UserInputChoice.ACTION_BOOK_RANDOM_GENERATED:
-                //вызов метода для генерации
+            case UserInputChoice.ACTION_CAR_RANDOM_GENERATED:
+                //service
                 break;
             case UserInputChoice.ACTION_CAR_MANUAL_GENERATED:
-                //вызов метода для генерации
+
                 break;
         }
         return cars;
@@ -41,4 +42,10 @@ public class CarService implements Generator<Car>, SearchStrategy<Car>, SortStra
     public void sort(List<Car> collection) {
 
     }
+
+
+    public void add(Car car) {
+
+    }
+
 }

@@ -7,7 +7,7 @@ import ru.aston.sort_app.controller.actions.GenerateCar;
 import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.dao.CarFileDAO;
-import ru.aston.sort_app.dao.FileDAO;
+import ru.aston.sort_app.dao.DAO;
 import ru.aston.sort_app.services.CarService;
 import ru.aston.sort_app.view.ConsolePrinter;
 import ru.aston.sort_app.view.MenuView;
@@ -24,7 +24,7 @@ public class Main {
 
         List<Car> cars = new ArrayList<>();
         MessagePrinter messagePrinter = new ConsolePrinter();
-        FileDAO<Car> carFileDAO = new CarFileDAO();
+        DAO<Car> carFileDAO = new CarFileDAO();
         CarService carService = new CarService(carFileDAO);
         GenerateCar generateCar = new GenerateCar(messagePrinter, carService, cars);
 

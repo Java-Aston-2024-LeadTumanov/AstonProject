@@ -1,9 +1,6 @@
 package ru.aston.sort_app.dao;
 
-import java.util.List;
+import ru.aston.sort_app.core.Car;
 
-public interface FileDAO<T> {
-//    T read();
-//    void write(String str);
-    List<T> get(int amount);
+public interface FileDAO<T> extends DAO<T>{
 }
