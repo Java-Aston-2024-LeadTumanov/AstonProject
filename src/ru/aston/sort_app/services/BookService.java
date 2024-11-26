@@ -21,15 +21,14 @@ public class BookService implements Generator<Book>, SearchStrategy<Book>, SortS
     }
 
     @Override
-    public List<Book> generate(UserInputChoice generateType) {
+    public List<Book> generate(UserInputChoice generateType, int size) {
         switch (generateType) {
             case ACTION_BOOK_FILE_GENERATED:
-                return fileDao.get(DEFAULT_BOOK_COUNT);
+                return fileDao.get(size);
             case ACTION_BOOK_RANDOM_GENERATED:
-                return generateRandomBooks(DEFAULT_BOOK_COUNT);
+                return generateRandomBooks(size);
             case ACTION_BOOK_MANUAL_GENERATED:
-                // !!!Надо реализовать логику ручного ввода
-                System.out.println("Функция ручного ввода пока не реализована.");
+                System.out.println("Ручной ввод пока не реализован.");
                 break;
             default:
                 System.out.println("Неподдерживаемый тип генерации: " + generateType);
@@ -40,7 +39,6 @@ public class BookService implements Generator<Book>, SearchStrategy<Book>, SortS
 
     @Override
     public List<Book> find(Book item) {
-        // Реализуйте поиск книг по автору и названию
         return fileDao.get(DEFAULT_BOOK_COUNT).stream()
                 .filter(book -> book.getAuthor().equalsIgnoreCase(item.getAuthor()) &&
                         book.getTitle().equalsIgnoreCase(item.getTitle()))
@@ -57,8 +55,8 @@ public class BookService implements Generator<Book>, SearchStrategy<Book>, SortS
         List<Book> books = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            String author = "Автор " + random.nextInt(100);
-            String title = "Книга " + random.nextInt(1000);
+            String author = "Автор " + random.nextInt(10);
+            String title = "Книга " + random.nextInt(50);
             int pageCount = 50 + random.nextInt(950);
 
             Book book = new Book.Builder()
