@@ -24,7 +24,7 @@ public class SearchMenu implements MenuView {
             case 1 -> UserInputChoice.ACTION_CAR_SEARCH;
             case 2 -> UserInputChoice.ACTION_BOOK_SEARCH;
             case 3 -> UserInputChoice.ACTION_ROOTCROP_SEARCH;
-            case 4 -> UserInputChoice.BACK_MENU;
+            case 4 -> UserInputChoice.MENU_MAIN;
             default -> null;
         };
     }

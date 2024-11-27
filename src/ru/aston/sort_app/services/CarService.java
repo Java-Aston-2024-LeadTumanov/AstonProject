@@ -2,7 +2,7 @@ package ru.aston.sort_app.services;
 
 import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
-import ru.aston.sort_app.dao.DAO;
+import ru.aston.sort_app.services.sorts.SortStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class CarService implements Generator<Car>, SearchStrategy<Car>, SortStra
 
 
     @Override
-    public void sort(List<Car> collection) {
+    public void sort(ArrayList<Car> collection) {
 
     }
 

@@ -14,7 +14,7 @@ public class FileMenu implements MenuView {
         System.out.println("1 - Машина");
         System.out.println("2 - Книга");
         System.out.println("3 - Корнеплод");
-        System.out.println("4 - Вернуться в меню");
+        System.out.println("4 - Вернуться назад");
     }
 
     @Override

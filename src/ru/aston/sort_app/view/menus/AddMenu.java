@@ -14,7 +14,7 @@ public class AddMenu implements MenuView {
         System.out.println("1 - Ввести данные вручную");
         System.out.println("2 - Добавить данные из файла");
         System.out.println("3 - Сгенерировать данные");
-        System.out.println("4 - Вернуться в меню");
+        System.out.println("4 - Вернуться назад");
     }
 
     @Override
