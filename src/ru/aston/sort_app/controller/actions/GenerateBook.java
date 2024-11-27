@@ -15,19 +15,21 @@ public class GenerateBook implements MenuAction {
     private final Reader reader;
     private final Service<Book> bookService;
     private final List<Book> books;
+    private int count;
 
     public GenerateBook(MessagePrinter messagePrinter, Reader reader, Service<Book> bookService, List<Book> books) {
         this.messagePrinter = messagePrinter;
         this.reader = reader;
         this.bookService = bookService;
         this.books = books;
+        count = 0;
     }
 
     @Override
     public void execute(UserInputChoice choice) {
         if (choice == UserInputChoice.ACTION_BOOK_MANUAL_GENERATED) {
             messagePrinter.printMessage("Введите данные для книги. Для завершения ввода введите 'exit' в поле названия.");
-            int count = 0;
+
             while (true) {
                 messagePrinter.printMessage("Введите название:");
                 String title = reader.getStringInput();
@@ -48,6 +50,7 @@ public class GenerateBook implements MenuAction {
                 bookService.add(book);
                 count++;
             }
+            books.clear();
             books.addAll(bookService.generate(choice, count));
             messagePrinter.printMessage(books.toString());
         } else {

@@ -8,9 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.aston.sort_app.dao.FileReadException;
+
 public class BookFileDAO implements FileDAO<Book> {
     private static final String FILE_NAME = "src/resources/book.csv";
-
 
     @Override
     public List<Book> get(int amount) {
@@ -34,19 +35,9 @@ public class BookFileDAO implements FileDAO<Book> {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка при работе с файлом: " + FILE_NAME, e);
+            throw new FileReadException("Ошибка при работе с файлом: " + FILE_NAME, e);
         }
 
         return books;
     }
-
-//    @Override
-//    public void write(String str) {
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
-//            writer.write(str);
-//            writer.newLine();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Ошибка записи в файл: " + FILE_NAME, e);
-//        }
-//    }
 }

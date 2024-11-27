@@ -69,7 +69,7 @@ public class Main {
         Service<RootCrop> rootCropService = new RootCropService(rootCropFileDAO, rootCropMemoryDAO, rootCropSortStrategy, rootCropSearchStrategy);
 
         MenuAction generateCar = new GenerateCar(messagePrinter, reader, carService, cars);
-        MenuAction generateBook = new GenerateBook(messagePrinter, bookService, books);
+        MenuAction generateBook = new GenerateBook(messagePrinter, reader, bookService, books);
         MenuAction generateRootCrop = new GenerateRootCrop(messagePrinter, reader, rootCropService, rootCrops);
 
         MenuAction searchCar = new SearchCar(messagePrinter, reader, carService, cars);
