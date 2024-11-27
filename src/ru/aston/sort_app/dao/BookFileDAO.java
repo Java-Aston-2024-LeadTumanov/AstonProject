@@ -2,7 +2,9 @@ package ru.aston.sort_app.dao;
 
 import ru.aston.sort_app.core.Book;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +39,13 @@ public class BookFileDAO implements FileDAO<Book> {
         return books;
     }
 
-    @Override
-    public void write(String str) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
-            writer.write(str);
-            writer.newLine();
-        } catch (IOException e) {
-            throw new RuntimeException("Ошибка записи в файл: " + FILE_NAME, e);
-        }
-    }
+//    @Override
+//    public void write(String str) {
+//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+//            writer.write(str);
+//            writer.newLine();
+//        } catch (IOException e) {
+//            throw new RuntimeException("Ошибка записи в файл: " + FILE_NAME, e);
+//        }
+//    }
 }

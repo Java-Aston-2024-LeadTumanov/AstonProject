@@ -1,6 +1,6 @@
 package ru.aston.sort_app.dao;
 
-public interface FileDAO<T> {
-    T read();
-    void write(String str);
+import ru.aston.sort_app.core.Car;
+
+public interface FileDAO<T> extends DAO<T>{
 }

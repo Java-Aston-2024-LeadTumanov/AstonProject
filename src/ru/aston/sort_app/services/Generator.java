@@ -5,5 +5,5 @@ import ru.aston.sort_app.core.UserInputChoice;
 import java.util.List;
 
 public interface Generator<T> {
-    List<T> generate(UserInputChoice generateType);
+    List<T> generate(UserInputChoice generateType, int size);
 }
