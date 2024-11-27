@@ -53,7 +53,7 @@ public class GenerateRootCrop implements MenuAction {
                         .setColor(color)
                         .build();
 
-                rootCrops.add(rootCrop);
+                rootCropService.add(rootCrop);
                 count++;
             }
             rootCrops.addAll(rootCropService.generate(choice, count));
