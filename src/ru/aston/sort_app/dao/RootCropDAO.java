@@ -21,23 +21,26 @@ public class RootCropDAO implements FileDAO<RootCrop>{
 
         List<RootCrop> rootCrops = new ArrayList<>();
 
-        // Print the file path and working directory for debugging
+        // read from file up to "amount" lines
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
+            int count = 0;
             while ((line = br.readLine()) != null) {
-                // Parse each line into a RootCrop object and add to the list
                 RootCrop rootCrop = parseLine(line);
                 if (rootCrop != null) {
                     rootCrops.add(rootCrop);
+                    count++;
+                }
+                if (count >= amount) {
+                    break; // Stop after reading the required amount
                 }
             }
         } catch (IOException e) {
             System.err.println("Error reading the file: " + e.getMessage());
         }
-        
+    
         return rootCrops;
     }
-    
 
 
     public void save(List<RootCrop> rootCrops) {
