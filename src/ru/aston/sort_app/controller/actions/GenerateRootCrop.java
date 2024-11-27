@@ -57,6 +57,7 @@ public class GenerateRootCrop implements MenuAction {
                 count++;
             }
             rootCrops.addAll(rootCropService.generate(choice, count));
+            messagePrinter.printMessage(rootCrops.toString());
         } else {
             messagePrinter.printMessage("Введите количество элементов (не более 6):");
             int size = InputValidator.getValidatedInput(6);
