@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import ru.aston.sort_app.dao.RootCropDAO;
-import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.RootCrop;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.dao.FileDAO;
@@ -13,12 +12,17 @@ import java.util.Random;
 
 
 
-public class RootCropService implements Service<RootCrop>{
-    private RootCropDAO rootCropDAO;
+public class RootCropService extends Service<RootCrop> {
+    private final FileDAO<RootCrop> fileDao;
     private final MemoryDAO<RootCrop> memoryDAO;
 
-    public RootCropService(RootCropDAO rootCropDAO) {
-        this.rootCropDAO = rootCropDAO;
+    public RootCropService(FileDAO<RootCrop> fileDao,
+                      MemoryDAO<RootCrop> memoryDAO,
+                      SortStrategy<RootCrop> sortStrategy,
+                      SearchStrategy<RootCrop> searchStrategy) {
+        super(searchStrategy, sortStrategy);
+        this.fileDao = fileDao;
+        this.memoryDAO = memoryDAO;
     }
 
     // This method generates a list of RootCrops based on user input choice

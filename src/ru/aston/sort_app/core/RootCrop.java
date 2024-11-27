@@ -1,5 +1,5 @@
 package ru.aston.sort_app.core;
-import java.util.Comparator;
+
 
 public class RootCrop {
     private final String type;
@@ -62,11 +62,4 @@ public class RootCrop {
         }
     }
 
-    //Comparators 
-    public static final Comparator<RootCrop> byType = Comparator.comparing(RootCrop::getType);
-    public static final Comparator<RootCrop> byWeight = Comparator.comparingDouble(RootCrop::getWeight);
-    public static final Comparator<RootCrop> byColor = Comparator.comparing(RootCrop::getColor);
-    public static final Comparator<RootCrop> byTypeThenWeightThenColor =
-        byType.thenComparing(byWeight).thenComparing(byColor);
 }
-

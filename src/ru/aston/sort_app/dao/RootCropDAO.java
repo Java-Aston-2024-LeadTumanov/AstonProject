@@ -5,9 +5,11 @@ import ru.aston.sort_app.core.RootCrop;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import ru.aston.sort_app.dao.FileDAO;
 
 
-public class RootCropDAO {
+
+public class RootCropDAO implements FileDAO<RootCrop>{
     
     private static final String FILE_PATH =  "rootcrops.txt";
 
