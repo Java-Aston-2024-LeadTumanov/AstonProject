@@ -1,5 +1,6 @@
 package ru.aston.sort_app.dao;
 
+import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.RootCrop;
 
 import java.io.*;
@@ -11,26 +12,17 @@ import ru.aston.sort_app.dao.FileDAO;
 
 public class RootCropDAO implements FileDAO<RootCrop>{
     
-    private static final String FILE_PATH =  "rootcrops.txt";
+    private static final String FILE_PATH =  "src/resources/rootcrops.txt";
 
     // Save RootCrops to a file (or database)
-    public void save(List<RootCrop> rootCrops) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            for (RootCrop rootCrop : rootCrops) {
-                writer.write(rootCrop.getType() + "," + rootCrop.getWeight() + "," + rootCrop.getColor());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
-        }
-    }
 
-    // Retrieve all RootCrops (for example, from a file)
-    public List<RootCrop> readFromFile(String filePath) {
+    @Override
+    public List<RootCrop> get(int amount){
+
         List<RootCrop> rootCrops = new ArrayList<>();
 
         // Print the file path and working directory for debugging
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = br.readLine()) != null) {
                 // Parse each line into a RootCrop object and add to the list
@@ -44,6 +36,19 @@ public class RootCropDAO implements FileDAO<RootCrop>{
         }
         
         return rootCrops;
+    }
+    
+
+
+    public void save(List<RootCrop> rootCrops) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+            for (RootCrop rootCrop : rootCrops) {
+                writer.write(rootCrop.getType() + "," + rootCrop.getWeight() + "," + rootCrop.getColor());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
     }
 
     // Helper method to parse a line into a RootCrop object
@@ -80,7 +85,6 @@ public class RootCropDAO implements FileDAO<RootCrop>{
             System.out.println(rootCrop);  // RootCrop's toString method will be used to print
         }
     }
-
+}
     
   
-}
