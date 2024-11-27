@@ -1,71 +1,67 @@
 package ru.aston.sort_app.controller.actions;
 
-import java.io.Reader;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-
-import ru.aston.sort_app.services.Service;
-import ru.aston.sort_app.services.RootCropService;
-import ru.aston.sort_app.view.InputValidator;
-import ru.aston.sort_app.core.RootCrop;
-import java.util.Scanner;
-
 import ru.aston.sort_app.controller.MenuAction;
+import ru.aston.sort_app.core.RootCrop;
 import ru.aston.sort_app.core.UserInputChoice;
+import ru.aston.sort_app.services.Service;
+import ru.aston.sort_app.view.InputValidator;
+import ru.aston.sort_app.view.MessagePrinter;
+import ru.aston.sort_app.view.Reader;
+
+import java.util.List;
 
 
+public class GenerateRootCrop implements MenuAction {
+    private final MessagePrinter messagePrinter;
+    private final Reader reader;
 
-
-public class GenerateRootCrop implements MenuAction{
-
-
-    private final Service<RootCrop> RootCropService;
+    private final Service<RootCrop> rootCropService;
     private final List<RootCrop> rootCrops;
-    private static final Scanner scanner = new Scanner(System.in);
 
-    public GenerateRootCrop(Scanner scanner,  Service<RootCrop> RootCropService, List<RootCrop> rootcrops) {
-        this.RootCropService = RootCropService;
+    public GenerateRootCrop(MessagePrinter messagePrinter, Reader reader, Service<RootCrop> rootCropService, List<RootCrop> rootCrops) {
+        this.messagePrinter = messagePrinter;
+        this.reader = reader;
+        this.rootCropService = rootCropService;
         this.rootCrops = rootCrops;
     }
 
 
-     @Override
+    @Override
     public void execute(UserInputChoice choice) {
 
         if (choice == UserInputChoice.ACTION_ROOTCROP_MANUAL_GENERATED) {
-            System.out.print("Введите данные для корнеплода. Для завершения ввода введите 'exit' в поле модели.");
+            messagePrinter.printMessage("Введите данные для автомобиля. Для завершения ввода введите 'exit' в поле модели.");
             int count = 0;
 
-        //loop through all rootcrops that user inputs
+            //loop through all rootCrops that user inputs
             while (true) {
-                
-               // Get a single RootCrop via user input
-        
-            System.out.print("Enter root crop type: ");
-            String type = scanner.nextLine();
-            System.out.print("Enter root crop weight (in grams): ");
-            int weight = Integer.parseInt(scanner.nextLine());
-            System.out.print("Enter root crop color: ");
-            String color = scanner.nextLine();
 
-            RootCrop rootCrop = new RootCrop.Builder()
-                    .setType(type)
-                    .setWeight(weight)
-                    .setColor(color)
-                    .build();
+                // Get a single RootCrop via user input
+                messagePrinter.printMessage("Enter root crop type: ");
+                String type = reader.getStringInput();
+                if ("exit".equalsIgnoreCase(type)) {
+                    break;
+                }
+                messagePrinter.printMessage("Enter root crop weight (in grams): ");
+                int weight = Integer.parseInt(reader.getStringInput());
+                messagePrinter.printMessage("Enter root crop color: ");
+                String color = reader.getStringInput();
 
-            rootCrops.add(rootCrop);
-            count++;
+                RootCrop rootCrop = new RootCrop.Builder()
+                        .setType(type)
+                        .setWeight(weight)
+                        .setColor(color)
+                        .build();
+
+                rootCrops.add(rootCrop);
+                count++;
             }
-        rootCrops.addAll(RootCropService.generate(choice,count))
-        } 
-
-        else {
-            System.out.print("Введите количество элементов (не более 30):");
-            int size = InputValidator.getValidatedInput(30);
-            rootCrops.addAll(RootCropService.generate(choice, size));
-            System.out.print(rootCrops.toString());
+            rootCrops.addAll(rootCropService.generate(choice, count));
+        } else {
+            messagePrinter.printMessage("Введите количество элементов (не более 6):");
+            int size = InputValidator.getValidatedInput(6);
+            rootCrops.addAll(rootCropService.generate(choice, size));
+            messagePrinter.printMessage(rootCrops.toString());
         }
     }
 

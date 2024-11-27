@@ -1,3 +1,4 @@
+package ru.aston.sort_app.services;
 
 import ru.aston.sort_app.dao.FileDAO;
 import ru.aston.sort_app.dao.MemoryDAO;
@@ -5,7 +6,6 @@ import ru.aston.sort_app.dao.MemoryDAO;
 import ru.aston.sort_app.services.searches.SearchStrategy;
 import ru.aston.sort_app.services.sorts.SortStrategy;
 import ru.aston.sort_app.core.RootCrop;
-import ru.aston.sort_app.services.Service;
 import ru.aston.sort_app.core.UserInputChoice;
 
 import java.util.Random;
@@ -35,7 +35,7 @@ public class RootCropService extends Service<RootCrop> {
         List<RootCrop> rootCrops = new ArrayList<>();
         switch (generateType) {
             case UserInputChoice.ACTION_ROOTCROP_FILE_GENERATED:
-                rootCrops = fileDAO.get(size);
+                rootCrops = fileDao.get(size);
                 break;
             case UserInputChoice.ACTION_ROOTCROP_RANDOM_GENERATED:
                 rootCrops = generateRandomRootCrops(size);
@@ -77,7 +77,7 @@ public class RootCropService extends Service<RootCrop> {
     //sorting, searching and adding
     @Override
     public List<RootCrop> find(List<RootCrop> rootCrops, RootCrop rootCrop) {
-        return super.getSearchStrategy().find(RootCrops, rootCrop);
+        return super.getSearchStrategy().find(rootCrops, rootCrop);
     }
 
 
