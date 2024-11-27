@@ -1,5 +1,6 @@
 package ru.aston.sort_app.services;
 import ru.aston.sort_app.core.Book;
+import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.dao.FileDAO;
 import ru.aston.sort_app.services.searches.SearchStrategy;
@@ -38,7 +39,7 @@ public class BookService implements Generator<Book>, SearchStrategy<Book>, SortS
     }
 
     @Override
-    public List<Book> find(Book item) {
+    public List<Book> find(ArrayList<Book> books,  Book item) {
         return fileDao.get(DEFAULT_BOOK_COUNT).stream()
                 .filter(book -> book.getAuthor().equalsIgnoreCase(item.getAuthor()) &&
                         book.getTitle().equalsIgnoreCase(item.getTitle()))

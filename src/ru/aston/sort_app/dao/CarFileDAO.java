@@ -29,6 +29,7 @@ public class CarFileDAO implements FileDAO<Car> {
                         .setYear(Integer.parseInt(values[2]))
                         .build();
                 cars.add(car);
+                listSize++;
             }
 
         } catch (IOException e) {
