@@ -4,20 +4,26 @@ import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.dao.FileDAO;
 import ru.aston.sort_app.dao.MemoryDAO;
+import ru.aston.sort_app.services.searches.SearchStrategy;
+import ru.aston.sort_app.services.sorts.SortStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CarService implements Service<Car> {
+public class CarService extends Service<Car> {
     private final FileDAO<Car> fileDao;
     private final MemoryDAO<Car> memoryDAO;
 
-
-    public CarService(FileDAO fileDao, MemoryDAO<Car> memoryDAO) {
+    public CarService(FileDAO<Car> fileDao,
+                      MemoryDAO<Car> memoryDAO,
+                      SortStrategy<Car> sortStrategy,
+                      SearchStrategy<Car> searchStrategy) {
+        super(searchStrategy, sortStrategy);
         this.fileDao = fileDao;
         this.memoryDAO = memoryDAO;
     }
+
 
     @Override
     public List<Car> generate(UserInputChoice generateType, int size) {
@@ -37,14 +43,14 @@ public class CarService implements Service<Car> {
     }
 
     @Override
-    public List<Car> find(ArrayList<Car> array, Car item) {
-        return List.of();
+    public List<Car> find(List<Car> cars, Car car) {
+        return super.getSearchStrategy().find(cars, car);
     }
 
 
     @Override
-    public void sort(ArrayList<Car> collection) {
-
+    public void sort(List<Car> list) {
+        super.getSortStrategy().sort(list);
     }
 
     @Override

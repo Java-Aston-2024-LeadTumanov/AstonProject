@@ -20,7 +20,7 @@ public class SortMenu implements MenuView {
     @Override
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
-        return switch (InputValidator.getValidatedInput(5)){
+        return switch (InputValidator.getValidatedInput(4)){
             case 1 -> UserInputChoice.ACTION_CAR_SORT;
             case 2 -> UserInputChoice.ACTION_BOOK_SORT;
             case 3 -> UserInputChoice.ACTION_ROOTCROP_SORT;
