@@ -27,7 +27,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "\nCar{" +
                 "power=" + power +
                 ", model='" + model + '\'' +
                 ", year=" + year +

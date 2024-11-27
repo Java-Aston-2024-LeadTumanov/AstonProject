@@ -16,19 +16,20 @@ public class GenerateCar implements MenuAction {
 
     private final Service<Car> carService;
     private final List<Car> cars;
+    private int count;
 
     public GenerateCar(MessagePrinter messagePrinter, Reader reader, Service<Car> carService, List<Car> cars) {
         this.messagePrinter = messagePrinter;
         this.reader = reader;
         this.carService = carService;
         this.cars = cars;
+        count = 0;
     }
 
     @Override
     public void execute(UserInputChoice choice) {
         if (choice == UserInputChoice.ACTION_CAR_MANUAL_GENERATED) {
             messagePrinter.printMessage("Введите данные для автомобиля. Для завершения ввода введите 'exit' в поле модели.");
-            int count = 0;
             while (true) {
                 System.out.println("Введите модель:");
                 String model = reader.getStringInput();
@@ -37,6 +38,7 @@ public class GenerateCar implements MenuAction {
                 }
                 messagePrinter.printMessage("Введите мощност:");
                 int power = Integer.parseInt(reader.getStringInput());
+
                 messagePrinter.printMessage("Введите год:");
                 int year = Integer.parseInt(reader.getStringInput());
 
@@ -45,10 +47,10 @@ public class GenerateCar implements MenuAction {
                         .setPower(power)
                         .setYear(year)
                         .build();
-
                 carService.add(car);
                 count++;
             }
+            cars.clear();
             cars.addAll(carService.generate(choice, count));
             messagePrinter.printMessage(cars.toString());
         } else {
