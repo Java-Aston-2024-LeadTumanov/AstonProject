@@ -22,10 +22,10 @@ public class GenerateBook implements MenuAction {
 
     @Override
     public void execute(UserInputChoice choice) {
+
         messagePrinter.printMessage("Введите количество элементов (не более 30):");
         int size = InputValidator.getValidatedInput(30);
         books.addAll(bookService.generate(choice, size));
-        messagePrinter.printMessage("Данные успешно добавлены в коллекцию.");
         messagePrinter.printMessage(books.toString());
     }
 }
