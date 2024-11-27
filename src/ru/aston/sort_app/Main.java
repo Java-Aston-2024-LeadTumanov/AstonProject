@@ -6,22 +6,21 @@ import ru.aston.sort_app.controller.MenuController;
 import ru.aston.sort_app.controller.actions.*;
 import ru.aston.sort_app.core.Book;
 import ru.aston.sort_app.core.Car;
+import ru.aston.sort_app.core.RootCrop;
 import ru.aston.sort_app.core.UserInputChoice;
-import ru.aston.sort_app.dao.BookFileDAO;
-import ru.aston.sort_app.dao.BookMemoryDAO;
-import ru.aston.sort_app.dao.CarFileDAO;
-import ru.aston.sort_app.dao.CarMemoryDAO;
-import ru.aston.sort_app.dao.FileDAO;
-import ru.aston.sort_app.dao.MemoryDAO;
+import ru.aston.sort_app.dao.*;
 import ru.aston.sort_app.services.BookService;
 import ru.aston.sort_app.services.CarService;
+import ru.aston.sort_app.services.RootCropService;
 import ru.aston.sort_app.services.Service;
 import ru.aston.sort_app.services.searches.SearchStrategy;
 import ru.aston.sort_app.services.searches.binary.BookBinarySearch;
 import ru.aston.sort_app.services.searches.binary.CarBinarySearch;
+import ru.aston.sort_app.services.searches.binary.RootCropBinarySearch;
 import ru.aston.sort_app.services.sorts.SortStrategy;
 import ru.aston.sort_app.services.sorts.shell.BookShellSort;
 import ru.aston.sort_app.services.sorts.shell.CarShellSort;
+import ru.aston.sort_app.services.sorts.shell.RootCropShellSort;
 import ru.aston.sort_app.view.ConsolePrinter;
 import ru.aston.sort_app.view.ConsoleReader;
 import ru.aston.sort_app.view.MenuView;
@@ -47,31 +46,37 @@ public class Main {
 
         SortStrategy<Car> carSortStrategy = new CarShellSort();
         SortStrategy<Book> bookSortStrategy = new BookShellSort();
+        SortStrategy<RootCrop> rootCropSortStrategy = new RootCropShellSort();
 
         SearchStrategy<Car> carSearchStrategy = new CarBinarySearch();
         SearchStrategy<Book> bookSearchStrategy = new BookBinarySearch();
-
+        SearchStrategy<RootCrop> rootCropSearchStrategy = new RootCropBinarySearch();
 
         List<Car> cars = new ArrayList<>();
         List<Book> books = new ArrayList<>();
+        List<RootCrop> rootCrops = new ArrayList<>();
 
         FileDAO<Car> carFileDAO = new CarFileDAO();
         FileDAO<Book> bookFileDAO = new BookFileDAO();
+        FileDAO<RootCrop> rootCropFileDAO = new RootCropDAO();
 
         MemoryDAO<Car> carMemoryDAO = new CarMemoryDAO();
         MemoryDAO<Book> bookMemoryDAO = new BookMemoryDAO();
+        MemoryDAO<RootCrop> rootCropMemoryDAO = new RootCropMemoryDAO();
 
         Service<Car> carService = new CarService(carFileDAO, carMemoryDAO, carSortStrategy, carSearchStrategy);
-        BookService bookService = new BookService(bookFileDAO, bookMemoryDAO, bookSortStrategy, bookSearchStrategy);
+        Service<Book> bookService = new BookService(bookFileDAO, bookMemoryDAO, bookSortStrategy, bookSearchStrategy);
+        Service<RootCrop> rootCropService = new RootCropService(rootCropFileDAO, rootCropMemoryDAO, rootCropSortStrategy, rootCropSearchStrategy);
 
-        GenerateCar generateCar = new GenerateCar(messagePrinter, reader, carService, cars);
-        GenerateBook generateBook = new GenerateBook(messagePrinter,reader, bookService, books);
+        MenuAction generateCar = new GenerateCar(messagePrinter, reader, carService, cars);
+        MenuAction generateBook = new GenerateBook(messagePrinter, bookService, books);
+        MenuAction generateRootCrop = new GenerateRootCrop(messagePrinter, reader, rootCropService, rootCrops);
 
-        SearchCar searchCar = new SearchCar(messagePrinter, reader, carService, cars);
-        SearchBook searchBook = new SearchBook(messagePrinter, reader, bookService, books);
+        MenuAction searchCar = new SearchCar(messagePrinter, reader, carService, cars);
+        MenuAction searchBook = new SearchBook(messagePrinter, reader, bookService, books);
 
-        SortCar sortCar = new SortCar(messagePrinter, reader, carService, cars);
-        SortBook sortBook = new SortBook(messagePrinter, reader, bookService, books);
+        MenuAction sortCar = new SortCar(messagePrinter, reader, carService, cars);
+        MenuAction sortBook = new SortBook(messagePrinter, reader, bookService, books);
 
 
         Map<UserInputChoice, MenuView> menus = new HashMap<>();
@@ -90,6 +95,9 @@ public class Main {
         actions.put(UserInputChoice.ACTION_BOOK_MANUAL_GENERATED, generateBook);
         actions.put(UserInputChoice.ACTION_BOOK_FILE_GENERATED, generateBook);
         actions.put(UserInputChoice.ACTION_BOOK_RANDOM_GENERATED, generateBook);
+        actions.put(UserInputChoice.ACTION_ROOTCROP_MANUAL_GENERATED, generateRootCrop);
+        actions.put(UserInputChoice.ACTION_ROOTCROP_FILE_GENERATED, generateRootCrop);
+        actions.put(UserInputChoice.ACTION_ROOTCROP_RANDOM_GENERATED, generateRootCrop);
         actions.put(UserInputChoice.ACTION_CAR_SORT, sortCar);
         actions.put(UserInputChoice.ACTION_BOOK_SORT, sortBook);
         actions.put(UserInputChoice.ACTION_CAR_SEARCH, searchCar);
