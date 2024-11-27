@@ -1,27 +1,29 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import ru.aston.sort_app.dao.RootCropDAO;
-import ru.aston.sort_app.core.RootCrop;
-import ru.aston.sort_app.core.UserInputChoice;
+
 import ru.aston.sort_app.dao.FileDAO;
 import ru.aston.sort_app.dao.MemoryDAO;
+
 import ru.aston.sort_app.services.searches.SearchStrategy;
 import ru.aston.sort_app.services.sorts.SortStrategy;
+import ru.aston.sort_app.core.RootCrop;
+import ru.aston.sort_app.services.Service;
+import ru.aston.sort_app.core.UserInputChoice;
 
 import java.util.Random;
-
+import java.util.stream.Collectors;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class RootCropService extends Service<RootCrop> {
     private final FileDAO<RootCrop> fileDao;
     private final MemoryDAO<RootCrop> memoryDAO;
 
+    // Constructor to inject dependencies
     public RootCropService(FileDAO<RootCrop> fileDao,
-                      MemoryDAO<RootCrop> memoryDAO,
-                      SortStrategy<RootCrop> sortStrategy,
-                      SearchStrategy<RootCrop> searchStrategy) {
-        super(searchStrategy, sortStrategy);
+                           MemoryDAO<RootCrop> memoryDAO,
+                           SortStrategy<RootCrop> sortStrategy,
+                           SearchStrategy<RootCrop> searchStrategy) {
+        super(searchStrategy, sortStrategy); // Pass strategies to parent class constructor
         this.fileDao = fileDao;
         this.memoryDAO = memoryDAO;
     }
@@ -45,16 +47,6 @@ public class RootCropService extends Service<RootCrop> {
         return rootCrops; 
     }
 
-    // This method saves generated RootCrops using DAO
-    public void saveRootCrops(List<RootCrop> rootCrops) {
-        List<RootCrop> validatedRootCrops = validateRootCrops(rootCrops); // Validate before saving
-        rootCropDAO.save(validatedRootCrops);
-    }
-
-    // Return the list of RootCrops from DAO
-    public List<RootCrop> getRootCrops() {
-        return rootCropDAO.getAll();
-    }
 
     // Validation method for RootCrop objects
     private List<RootCrop> validateRootCrops(List<RootCrop> rootCrops) {

@@ -1,6 +1,5 @@
 package ru.aston.sort_app.dao;
 
-import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.RootCrop;
 
 import java.io.*;

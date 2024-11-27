@@ -10,7 +10,7 @@ public class RootCropMemoryDAO implements MemoryDAO<RootCrop> {
 
     @Override
     public List<RootCrop> get(int amount) {
-        return rootCrops.subList(0, Math.min(amount, RootCrop.size()));
+        return rootCrops.subList(0, Math.min(amount, rootCrops.size()));
     }
 
     public void add(RootCrop rootCrop) {

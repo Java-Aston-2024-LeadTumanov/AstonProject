@@ -1,13 +1,18 @@
 package ru.aston.sort_app.controller.actions;
 
 import java.io.Reader;
-import java.security.Provider.Service;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
 import ru.aston.sort_app.services.Service;
+import ru.aston.sort_app.services.RootCropService;
 import ru.aston.sort_app.view.InputValidator;
+import ru.aston.sort_app.core.RootCrop;
 import java.util.Scanner;
+
+import ru.aston.sort_app.controller.MenuAction;
+import ru.aston.sort_app.core.UserInputChoice;
 
 
 
@@ -50,7 +55,7 @@ public class GenerateRootCrop implements MenuAction{
                     .setColor(color)
                     .build();
 
-            RootCrops.add(rootCrop);
+            rootCrops.add(rootCrop);
             count++;
             }
         rootCrops.addAll(RootCropService.generate(choice,count))
@@ -59,7 +64,7 @@ public class GenerateRootCrop implements MenuAction{
         else {
             System.out.print("Введите количество элементов (не более 30):");
             int size = InputValidator.getValidatedInput(30);
-            rootCrops.addAll(RootCropService.generate(choice, count));
+            rootCrops.addAll(RootCropService.generate(choice, size));
             System.out.print(rootCrops.toString());
         }
     }
