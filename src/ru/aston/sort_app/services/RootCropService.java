@@ -57,8 +57,8 @@ public class RootCropService extends Service<RootCrop> {
 
     // Validation rules for a single RootCrop
     private boolean isValidRootCrop(RootCrop rootCrop) {
-        boolean isTypeValid = rootCrop.getType() != null && !rootCrop.getType().isEmpty()&& isAlphabetic(rootCrop.getType());;
-        boolean isColorValid = rootCrop.getColor() != null && !rootCrop.getColor().isEmpty()&& isAlphabetic(rootCrop.getColor());;
+        boolean isTypeValid = rootCrop.getType() != null && !rootCrop.getType().isEmpty()&& isAlphabetic(rootCrop.getType());
+        boolean isColorValid = rootCrop.getColor() != null && !rootCrop.getColor().isEmpty()&& isAlphabetic(rootCrop.getColor());
         boolean isWeightValid = rootCrop.getWeight() > 0;
 
         if (!isTypeValid || !isColorValid || !isWeightValid) {
