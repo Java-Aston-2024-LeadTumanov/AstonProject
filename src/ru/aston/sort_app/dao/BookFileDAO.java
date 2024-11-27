@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookFileDAO implements FileDAO<Book> {
-    private static final String FILE_NAME = "src/resources/books.csv";
+    private static final String FILE_NAME = "src/resources/book.csv";
+
 
     @Override
     public List<Book> get(int amount) {

@@ -26,19 +26,19 @@ public class BookService extends Service<Book> {
 
     @Override
     public List<Book> generate(UserInputChoice generateType, int size) {
+        List<Book> books = new ArrayList<>();
         switch (generateType) {
-            case ACTION_BOOK_FILE_GENERATED:
-                return fileDao.get(size);
-            case ACTION_BOOK_RANDOM_GENERATED:
-                return generateRandomBooks(size);
-            case ACTION_BOOK_MANUAL_GENERATED:
-                System.out.println("Ручной ввод пока не реализован.");
+            case UserInputChoice.ACTION_BOOK_FILE_GENERATED:
+                books = fileDao.get(size);
                 break;
-            default:
-                System.out.println("Неподдерживаемый тип генерации: " + generateType);
+            case UserInputChoice.ACTION_BOOK_RANDOM_GENERATED:
+                books = generateRandomBooks(size);
+                break;
+            case UserInputChoice.ACTION_BOOK_MANUAL_GENERATED:
+                books = memoryDAO.get(size);
                 break;
         }
-        return List.of();
+        return books;
     }
 
     @Override

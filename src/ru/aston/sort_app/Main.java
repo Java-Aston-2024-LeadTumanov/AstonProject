@@ -3,10 +3,7 @@ package ru.aston.sort_app;
 import ru.aston.sort_app.controller.DefaultMenuController;
 import ru.aston.sort_app.controller.MenuAction;
 import ru.aston.sort_app.controller.MenuController;
-import ru.aston.sort_app.controller.actions.GenerateBook;
-import ru.aston.sort_app.controller.actions.GenerateCar;
-import ru.aston.sort_app.controller.actions.SearchCar;
-import ru.aston.sort_app.controller.actions.SortCar;
+import ru.aston.sort_app.controller.actions.*;
 import ru.aston.sort_app.core.Book;
 import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
@@ -68,11 +65,13 @@ public class Main {
         BookService bookService = new BookService(bookFileDAO, bookMemoryDAO, bookSortStrategy, bookSearchStrategy);
 
         GenerateCar generateCar = new GenerateCar(messagePrinter, reader, carService, cars);
-        GenerateBook generateBook = new GenerateBook(messagePrinter, bookService, books);
+        GenerateBook generateBook = new GenerateBook(messagePrinter,reader, bookService, books);
 
         SearchCar searchCar = new SearchCar(messagePrinter, reader, carService, cars);
+        SearchBook searchBook = new SearchBook(messagePrinter, reader, bookService, books);
 
         SortCar sortCar = new SortCar(messagePrinter, reader, carService, cars);
+        SortBook sortBook = new SortBook(messagePrinter, reader, bookService, books);
 
 
         Map<UserInputChoice, MenuView> menus = new HashMap<>();
@@ -88,10 +87,13 @@ public class Main {
         actions.put(UserInputChoice.ACTION_CAR_MANUAL_GENERATED, generateCar);
         actions.put(UserInputChoice.ACTION_CAR_FILE_GENERATED, generateCar);
         actions.put(UserInputChoice.ACTION_CAR_RANDOM_GENERATED, generateCar);
+        actions.put(UserInputChoice.ACTION_BOOK_MANUAL_GENERATED, generateBook);
         actions.put(UserInputChoice.ACTION_BOOK_FILE_GENERATED, generateBook);
         actions.put(UserInputChoice.ACTION_BOOK_RANDOM_GENERATED, generateBook);
         actions.put(UserInputChoice.ACTION_CAR_SORT, sortCar);
+        actions.put(UserInputChoice.ACTION_BOOK_SORT, sortBook);
         actions.put(UserInputChoice.ACTION_CAR_SEARCH, searchCar);
+        actions.put(UserInputChoice.ACTION_BOOK_SEARCH, searchBook);
 
 
 
