@@ -1,30 +1,71 @@
 package ru.aston.sort_app.controller.actions;
 
+import java.io.Reader;
+import java.security.Provider.Service;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import ru.aston.sort_app.controller.MenuAction;
+import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.RootCrop;
+import ru.aston.sort_app.core.UserInputChoice;
 
 import java.util.Scanner;
 
 
-public class GenerateRootCrop{
 
+
+public class GenerateRootCrop implements MenuAction{
+
+
+    private final Service<RootCrop> RootCropService;
+    private final List<RootCrop> rootCrops;
     private static final Scanner scanner = new Scanner(System.in);
 
-    // Get a single RootCrop via user input
-    public static RootCrop userInputRootCrop() {
-        System.out.print("Enter root crop type: ");
-        String type = scanner.nextLine();
-        System.out.print("Enter root crop weight (in grams): ");
-        int weight = Integer.parseInt(scanner.nextLine());
-        System.out.print("Enter root crop color: ");
-        String color = scanner.nextLine();
-        return new RootCrop.Builder()
-                .setType(type)
-                .setWeight(weight)
-                .setColor(color)
-                .build();
+    public GenerateRootCrop(Scanner scanner,  Service<RootCrop> RootCropService, List<RootCrop> rootcrops) {
+        this.RootCropService = RootCropService;
+        this.rootCrops = rootCrops;
+    }
+
+
+     @Override
+    public void execute(UserInputChoice choice) {
+
+        if (choice == UserInputChoice.ACTION_ROOTCROP_MANUAL_GENERATED) {
+            System.out.print("Введите данные для корнеплода. Для завершения ввода введите 'exit' в поле модели.");
+            int count = 0;
+
+        //loop through all rootcrops that user inputs
+            while (true) {
+                
+               // Get a single RootCrop via user input
+        
+            System.out.print("Enter root crop type: ");
+            String type = scanner.nextLine();
+            System.out.print("Enter root crop weight (in grams): ");
+            int weight = Integer.parseInt(scanner.nextLine());
+            System.out.print("Enter root crop color: ");
+            String color = scanner.nextLine();
+
+            RootCrop rootCrop = new RootCrop.Builder()
+                    .setType(type)
+                    .setWeight(weight)
+                    .setColor(color)
+                    .build();
+
+            RootCrops.add(rootCrop);
+            count++;
+            }
+        rootCrops.addAll(RootCropService.generate(choice,count))
+        } 
+
+        else {
+            System.out.print("Введите количество элементов (не более 30):");
+            int size = InputValidator.getValidatedInput(30);
+            rootCrops.addAll(RootCropService.generate(choice, count));
+            System.out.print(rootCrops.toString());
+        }
     }
 
 }
