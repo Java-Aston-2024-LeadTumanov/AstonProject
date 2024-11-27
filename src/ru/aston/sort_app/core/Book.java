@@ -3,14 +3,14 @@ package ru.aston.sort_app.core;
 import java.util.Objects;
 
 public class Book {
-    private String author;
-    private String title;
-    private int pageCount;
+    private final String author;
+    private final String title;
+    private final int pageCount;
 
-    private Book(String author, String title, int pageCount) {
-        this.author = author;
-        this.title = title;
-        this.pageCount = pageCount;
+    private Book(Builder builder) {
+        this.author = builder.author;
+        this.title = builder.title;
+        this.pageCount = builder.pageCount;
     }
 
     public String getAuthor() {
@@ -23,34 +23,6 @@ public class Book {
 
     public int getPageCount() {
         return pageCount;
-    }
-
-    public static class Builder {
-        private String author;
-        private String title;
-        private int pageCount;
-
-        public Builder setAuthor(String author) {
-            this.author = author;
-            return this;
-        }
-
-        public Builder setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder setPageCount(int pageCount) {
-            this.pageCount = pageCount;
-            return this;
-        }
-
-        public Book build() {
-            if (author == null || title == null || pageCount <= 0) {
-                throw new IllegalArgumentException("Некорректные данные для книги.");
-            }
-            return new Book(author, title, pageCount);
-        }
     }
 
     @Override
@@ -75,5 +47,42 @@ public class Book {
     @Override
     public int hashCode() {
         return Objects.hash(author, title, pageCount);
+    }
+
+    public static class Builder {
+        private String author;
+        private String title;
+        private int pageCount;
+
+        public Builder setAuthor(String author) {
+            if (author == null || author.isBlank()) {
+                throw new IllegalArgumentException("Автор не может быть пустым.");
+            }
+            this.author = author;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            if (title == null || title.isBlank()) {
+                throw new IllegalArgumentException("Название книги не может быть пустым.");
+            }
+            this.title = title;
+            return this;
+        }
+
+        public Builder setPageCount(int pageCount) {
+            if (pageCount <= 0) {
+                throw new IllegalArgumentException("Количество страниц должно быть положительным числом больше ноля.");
+            }
+            this.pageCount = pageCount;
+            return this;
+        }
+
+        public Book build() {
+            if (author == null || title == null) {
+                throw new IllegalStateException("Автор и название книги обязательны.");
+            }
+            return new Book(this);
+        }
     }
 }
