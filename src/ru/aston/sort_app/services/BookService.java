@@ -1,24 +1,27 @@
 package ru.aston.sort_app.services;
+
 import ru.aston.sort_app.core.Book;
-import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.dao.FileDAO;
+import ru.aston.sort_app.dao.MemoryDAO;
 import ru.aston.sort_app.services.searches.SearchStrategy;
 import ru.aston.sort_app.services.sorts.SortStrategy;
-import ru.aston.sort_app.services.sorts.shell.BookShellSort;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BookService implements Generator<Book>, SearchStrategy<Book>, SortStrategy<Book> {
+public class BookService extends Service<Book> {
     private final FileDAO<Book> fileDao;
-    private final BookShellSort bookShellSort;
-    private static final int DEFAULT_BOOK_COUNT = 10;
+    private final MemoryDAO<Book> memoryDAO;
 
-    public BookService(FileDAO<Book> fileDao) {
+    public BookService(FileDAO<Book> fileDao,
+                       MemoryDAO<Book> memoryDAO,
+                       SortStrategy<Book> sortStrategy,
+                       SearchStrategy<Book> searchStrategy) {
+        super(searchStrategy, sortStrategy);
         this.fileDao = fileDao;
-        this.bookShellSort = new BookShellSort();
+        this.memoryDAO = memoryDAO;
     }
 
     @Override
@@ -39,16 +42,18 @@ public class BookService implements Generator<Book>, SearchStrategy<Book>, SortS
     }
 
     @Override
-    public List<Book> find(ArrayList<Book> books,  Book item) {
-        return fileDao.get(DEFAULT_BOOK_COUNT).stream()
-                .filter(book -> book.getAuthor().equalsIgnoreCase(item.getAuthor()) &&
-                        book.getTitle().equalsIgnoreCase(item.getTitle()))
-                .toList();
+    public List<Book> find(List<Book> books, Book item) {
+        return super.getSearchStrategy().find(books, item);
     }
 
     @Override
-    public void sort(ArrayList<Book> array) {
-        bookShellSort.sort(array);
+    public void sort(List<Book> list) {
+        super.getSortStrategy().sort(list);
+    }
+
+    @Override
+    public void add(Book item) {
+        memoryDAO.add(item);
     }
 
     private List<Book> generateRandomBooks(int count) {

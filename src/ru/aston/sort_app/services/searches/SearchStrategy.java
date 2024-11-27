@@ -4,5 +4,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface SearchStrategy<T> {
-    List<T> find(ArrayList<T> array, T item);
+    List<T> find(List<T> list, T item);
 }

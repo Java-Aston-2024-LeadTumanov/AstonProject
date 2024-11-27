@@ -10,7 +10,8 @@ public abstract class BinarySearch<T> implements SearchStrategy<T> {
     Comparator<T> comparator;
 
     @Override
-    public List<T> find(ArrayList<T> array, T item) {
+    public List<T> find(List<T> list, T item) {
+        ArrayList<T> array = (ArrayList<T>) list;
         int begin = 0,
                 end = array.size() - 1,
                 middle = (begin + end) / 2,

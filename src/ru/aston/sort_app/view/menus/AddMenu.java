@@ -20,7 +20,7 @@ public class AddMenu implements MenuView {
     @Override
     public UserInputChoice getUserInputChoice() {
         System.out.println("Введите число для действия:");
-        return switch (InputValidator.getValidatedInput(5)){
+        return switch (InputValidator.getValidatedInput(4)){
             case 1 -> UserInputChoice.MENU_USER_GENERATED;
             case 2 -> UserInputChoice.MENU_FILE_GENERATED;
             case 3 -> UserInputChoice.MENU_RANDOM_GENERATION;
