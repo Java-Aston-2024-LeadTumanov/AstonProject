@@ -34,8 +34,6 @@ public class DefaultMenuController implements MenuController {
             } else if (actions.containsKey(choice)) {
                 actions.get(choice).execute(choice);
                 menuView = menus.get(UserInputChoice.MENU_MAIN);
-            } else {
-                messagePrinter.printMessage("Неверный выбор. Попробуйте снова.");
             }
         } while (choice != UserInputChoice.EXIT);
 
