@@ -54,23 +54,4 @@ public class RootCropInputHandler {
                 .build();
     }
 
-    // Parse a single RootCrop from a file line
-    public static RootCrop parseRootCropFromFile(String line) {
-        try {
-            // Assuming file line format: "Type,Weight,Color"
-            String[] parts = line.split(",");
-            String type = parts[0].trim();
-            int weight = Integer.parseInt(parts[1].trim());
-            String color = parts[2].trim();
-            return new RootCrop.Builder()
-                    .setType(type)
-                    .setWeight(weight)
-                    .setColor(color)
-                    .build();
-        } catch (Exception e) {
-            System.err.println("Error parsing RootCrop from line: " + line);
-            return null; 
-        }
-    }
-
 }
