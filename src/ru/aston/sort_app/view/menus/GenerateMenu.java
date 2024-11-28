@@ -4,8 +4,6 @@ import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.view.MenuView;
 import ru.aston.sort_app.view.InputValidator;
 
-import java.util.Scanner;
-
 public class GenerateMenu implements MenuView {
     @Override
     public void showMenu() {
