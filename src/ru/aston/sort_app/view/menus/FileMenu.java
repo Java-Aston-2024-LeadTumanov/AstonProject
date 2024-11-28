@@ -7,7 +7,6 @@ import ru.aston.sort_app.view.InputValidator;
 import java.util.Scanner;
 
 public class FileMenu implements MenuView {
-    private final Scanner scanner = new Scanner(System.in);
     @Override
     public void showMenu() {
         System.out.println("Меню: Выбор класса");

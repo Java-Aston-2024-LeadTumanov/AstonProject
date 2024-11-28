@@ -23,14 +23,11 @@ public abstract class BinarySearch<T> implements SearchStrategy<T> {
                 requiredItemIndex = middle;
                 break;
             }
-            if (compareResult < 0) {
+            if (compareResult < 0)
                 end = middle - 1;
-                middle = (begin + end) / 2;
-            }
-            else {
+            else
                 begin = middle + 1;
-                middle = (begin + end) / 2;
-            }
+            middle = (begin + end) / 2;
         }
 
         if (begin == end && comparator.compare(item, array.get(end)) == 0) {
