@@ -29,7 +29,7 @@ public class RootCrop {
     // Override toString
     @Override
     public String toString() {
-        return "RootCrop{" +
+        return "\nRootCrop{" +
                 "type='" + type + '\'' +
                 ", weight=" + weight +
                 ", color='" + color + '\'' +
