@@ -31,7 +31,7 @@ public class GenerateCar implements MenuAction {
         if (choice == UserInputChoice.ACTION_CAR_MANUAL_GENERATED) {
             messagePrinter.printMessage("Введите данные для автомобиля. Для завершения ввода введите 'exit' в поле модели.");
             while (true) {
-                System.out.println("Введите модель:");
+                messagePrinter.printMessage("Введите модель:");
                 String model = reader.getStringInput();
                 if ("exit".equalsIgnoreCase(model)) {
                     break;
