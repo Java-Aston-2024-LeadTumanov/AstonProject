@@ -69,14 +69,16 @@ public class Main {
         Service<RootCrop> rootCropService = new RootCropService(rootCropFileDAO, rootCropMemoryDAO, rootCropSortStrategy, rootCropSearchStrategy);
 
         MenuAction generateCar = new GenerateCar(messagePrinter, reader, carService, cars);
-        MenuAction generateBook = new GenerateBook(messagePrinter, bookService, books);
+        MenuAction generateBook = new GenerateBook(messagePrinter, reader, bookService, books);
         MenuAction generateRootCrop = new GenerateRootCrop(messagePrinter, reader, rootCropService, rootCrops);
 
         MenuAction searchCar = new SearchCar(messagePrinter, reader, carService, cars);
         MenuAction searchBook = new SearchBook(messagePrinter, reader, bookService, books);
+        MenuAction searchRootCrop = new SearchRootCrop(messagePrinter, reader, rootCropService, rootCrops);
 
         MenuAction sortCar = new SortCar(messagePrinter, reader, carService, cars);
         MenuAction sortBook = new SortBook(messagePrinter, reader, bookService, books);
+        MenuAction sortRootCrop = new SortRootCrop(messagePrinter, reader, rootCropService, rootCrops);
 
 
         Map<UserInputChoice, MenuView> menus = new HashMap<>();
@@ -100,8 +102,10 @@ public class Main {
         actions.put(UserInputChoice.ACTION_ROOTCROP_RANDOM_GENERATED, generateRootCrop);
         actions.put(UserInputChoice.ACTION_CAR_SORT, sortCar);
         actions.put(UserInputChoice.ACTION_BOOK_SORT, sortBook);
+        actions.put(UserInputChoice.ACTION_ROOTCROP_SORT, sortRootCrop);
         actions.put(UserInputChoice.ACTION_CAR_SEARCH, searchCar);
         actions.put(UserInputChoice.ACTION_BOOK_SEARCH, searchBook);
+        actions.put(UserInputChoice.ACTION_ROOTCROP_SEARCH, searchRootCrop);
 
 
 

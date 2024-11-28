@@ -33,6 +33,10 @@ public abstract class BinarySearch<T> implements SearchStrategy<T> {
             }
         }
 
+        if (begin == end && comparator.compare(item, array.get(end)) == 0) {
+            requiredItemIndex = end;
+        }
+
         ArrayList<T> result = new ArrayList<>();
         if (requiredItemIndex == -1)
             return result;

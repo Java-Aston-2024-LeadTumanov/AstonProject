@@ -17,12 +17,14 @@ public class GenerateRootCrop implements MenuAction {
 
     private final Service<RootCrop> rootCropService;
     private final List<RootCrop> rootCrops;
+    private int count;
 
     public GenerateRootCrop(MessagePrinter messagePrinter, Reader reader, Service<RootCrop> rootCropService, List<RootCrop> rootCrops) {
         this.messagePrinter = messagePrinter;
         this.reader = reader;
         this.rootCropService = rootCropService;
         this.rootCrops = rootCrops;
+        count = 0;
     }
 
 
@@ -31,7 +33,6 @@ public class GenerateRootCrop implements MenuAction {
 
         if (choice == UserInputChoice.ACTION_ROOTCROP_MANUAL_GENERATED) {
             messagePrinter.printMessage("Введите данные для автомобиля. Для завершения ввода введите 'exit' в поле модели.");
-            int count = 0;
 
             //loop through all rootCrops that user inputs
             while (true) {
