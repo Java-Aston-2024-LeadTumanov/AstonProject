@@ -4,6 +4,7 @@ import ru.aston.sort_app.controller.MenuAction;
 import ru.aston.sort_app.core.Book;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.services.Service;
+import ru.aston.sort_app.services.validators.BookValidator;
 import ru.aston.sort_app.view.InputValidator;
 import ru.aston.sort_app.view.MessagePrinter;
 import ru.aston.sort_app.view.Reader;
@@ -30,15 +31,37 @@ public class GenerateBook implements MenuAction {
         if (choice == UserInputChoice.ACTION_BOOK_MANUAL_GENERATED) {
             messagePrinter.printMessage("Введите данные для книги. Для завершения ввода введите 'exit' в поле названия.");
             while (true) {
-                messagePrinter.printMessage("Введите название:");
-                String title = reader.getStringInput();
+                String title;
+                String author;
+                int pageCount;
+                do {
+                    messagePrinter.printMessage("Введите название:");
+                    title = reader.getStringInput();
+                    if (BookValidator.validateTitle(title))
+                        break;
+                    else messagePrinter.printMessage("Данные не прошли валидацию");
+                } while (true);
                 if ("exit".equalsIgnoreCase(title)) {
                     break;
                 }
-                messagePrinter.printMessage("Введите автора:");
-                String author = reader.getStringInput();
-                messagePrinter.printMessage("Введите количество страниц:");
-                int pageCount = Integer.parseInt(reader.getStringInput());
+
+                do {
+                    messagePrinter.printMessage("Введите автора:");
+                    author = reader.getStringInput();
+                    if (BookValidator.validateAuthor(author))
+                        break;
+                    else messagePrinter.printMessage("Данные не прошли валидацию");
+                } while (true);
+
+                do {
+                    messagePrinter.printMessage("Введите количество страниц:");
+                    String pageCountStr = reader.getStringInput();
+                    if (BookValidator.validatePageCount(pageCountStr)) {
+                        pageCount = Integer.parseInt(pageCountStr);
+                        break;
+                    }
+                    else messagePrinter.printMessage("Данные не прошли валидацию");
+                } while (true);
 
                 Book book = new Book.Builder()
                         .setTitle(title)
@@ -52,8 +75,8 @@ public class GenerateBook implements MenuAction {
             books.addAll(bookService.generate(choice, count));
             messagePrinter.printMessage(books.toString());
         } else {
-            messagePrinter.printMessage("Введите количество элементов (не более 30):");
-            int size = InputValidator.getValidatedInput(30);
+            messagePrinter.printMessage("Введите количество элементов:");
+            int size = InputValidator.getValidatedInput(Integer.MAX_VALUE);
             books.addAll(bookService.generate(choice, size));
             messagePrinter.printMessage(books.toString());
         }

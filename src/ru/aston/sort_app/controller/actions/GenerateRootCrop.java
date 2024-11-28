@@ -4,6 +4,7 @@ import ru.aston.sort_app.controller.MenuAction;
 import ru.aston.sort_app.core.RootCrop;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.services.Service;
+import ru.aston.sort_app.services.validators.RootCropValidator;
 import ru.aston.sort_app.view.InputValidator;
 import ru.aston.sort_app.view.MessagePrinter;
 import ru.aston.sort_app.view.Reader;
@@ -32,21 +33,43 @@ public class GenerateRootCrop implements MenuAction {
     public void execute(UserInputChoice choice) {
 
         if (choice == UserInputChoice.ACTION_ROOTCROP_MANUAL_GENERATED) {
-            messagePrinter.printMessage("Введите данные для автомобиля. Для завершения ввода введите 'exit' в поле модели.");
+            messagePrinter.printMessage("Введите данные для корнеплода. Для завершения ввода введите 'exit' в поле типа.");
 
             //loop through all rootCrops that user inputs
             while (true) {
+                String type;
+                int weight;
+                String color;
 
                 // Get a single RootCrop via user input
-                messagePrinter.printMessage("Enter root crop type: ");
-                String type = reader.getStringInput();
+                do {
+                    messagePrinter.printMessage("Введите тип:");
+                    type = reader.getStringInput();
+                    if (RootCropValidator.validateType(type))
+                        break;
+                    else messagePrinter.printMessage("Данные не прошли валидацию");
+                } while (true);
                 if ("exit".equalsIgnoreCase(type)) {
                     break;
                 }
-                messagePrinter.printMessage("Enter root crop weight (in grams): ");
-                int weight = Integer.parseInt(reader.getStringInput());
-                messagePrinter.printMessage("Enter root crop color: ");
-                String color = reader.getStringInput();
+
+                do {
+                    messagePrinter.printMessage("Введите вес (в граммах):");
+                    String weightStr = reader.getStringInput();
+                    if (RootCropValidator.validateWeight(weightStr)) {
+                        weight = Integer.parseInt(weightStr);
+                        break;
+                    }
+                    else messagePrinter.printMessage("Данные не прошли валидацию");
+                } while (true);
+
+                do {
+                    messagePrinter.printMessage("Введите цвет:");
+                    color = reader.getStringInput();
+                    if (RootCropValidator.validateColor(color))
+                        break;
+                    else messagePrinter.printMessage("Данные не прошли валидацию");
+                } while (true);
 
                 RootCrop rootCrop = new RootCrop.Builder()
                         .setType(type)
@@ -60,8 +83,8 @@ public class GenerateRootCrop implements MenuAction {
             rootCrops.addAll(rootCropService.generate(choice, count));
             messagePrinter.printMessage(rootCrops.toString());
         } else {
-            messagePrinter.printMessage("Введите количество элементов (не более 6):");
-            int size = InputValidator.getValidatedInput(6);
+            messagePrinter.printMessage("Введите количество элементов:");
+            int size = InputValidator.getValidatedInput(Integer.MAX_VALUE);
             rootCrops.addAll(rootCropService.generate(choice, size));
             messagePrinter.printMessage(rootCrops.toString());
         }

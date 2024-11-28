@@ -3,7 +3,7 @@ package ru.aston.sort_app.core;
 
 public class RootCrop {
     private final String type;
-    private final double weight;
+    private final int weight;
     private final String color;
 
     // Private constructor for Builder
@@ -18,7 +18,7 @@ public class RootCrop {
         return type;
     }
 
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
@@ -39,10 +39,10 @@ public class RootCrop {
     // Builder class
     public static class Builder {
         private String type;
-        private double weight;
+        private int weight;
         private String color;
         public Builder setType(String type) {
-            if (type == null || type.isBlank() || !(type instanceof String)){
+            if (type == null || type.isBlank()){
                 throw new IllegalArgumentException("Тип не может быть пустым иили числом");
             }
 
@@ -50,7 +50,7 @@ public class RootCrop {
             return this;
         }
 
-        public Builder setWeight(double weight) {
+        public Builder setWeight(int weight) {
             if (weight<=0){
                 throw new IllegalArgumentException("Вес должен превышать ноль");
             }
@@ -59,7 +59,7 @@ public class RootCrop {
         }
 
         public Builder setColor(String color) {
-            if (color == null || color.isBlank()|| !(color instanceof String)){
+            if (color == null || color.isBlank()){
                 throw new IllegalArgumentException("Цвет не может быть пустым или числом");
             }
             this.color = color;

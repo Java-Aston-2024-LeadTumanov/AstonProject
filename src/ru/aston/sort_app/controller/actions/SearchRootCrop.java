@@ -4,6 +4,7 @@ import ru.aston.sort_app.controller.MenuAction;
 import ru.aston.sort_app.core.RootCrop;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.services.Service;
+import ru.aston.sort_app.services.validators.RootCropValidator;
 import ru.aston.sort_app.view.MessagePrinter;
 import ru.aston.sort_app.view.Reader;
 
@@ -25,15 +26,37 @@ public class SearchRootCrop implements MenuAction {
 
     @Override
     public void execute(UserInputChoice choice) {
+        String type;
+        int weight;
+        String color;
+
         messagePrinter.printMessage("Введите данные для корнеплода: ");
-        messagePrinter.printMessage("Введите тип:");
-        String type = reader.getStringInput();
 
-        messagePrinter.printMessage("Введите вес:");
-        int weight = Integer.parseInt(reader.getStringInput());
+        do {
+            messagePrinter.printMessage("Введите тип:");
+            type = reader.getStringInput();
+            if (RootCropValidator.validateType(type))
+                break;
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
 
-        messagePrinter.printMessage("Введите цвет:");
-        String color = reader.getStringInput();
+        do {
+            messagePrinter.printMessage("Введите вес (в граммах):");
+            String weightStr = reader.getStringInput();
+            if (RootCropValidator.validateWeight(weightStr)) {
+                weight = Integer.parseInt(weightStr);
+                break;
+            }
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
+
+        do {
+            messagePrinter.printMessage("Введите цвет:");
+            color = reader.getStringInput();
+            if (RootCropValidator.validateColor(color))
+                break;
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
 
         RootCrop rootCrop = new RootCrop.Builder()
                 .setType(type)
