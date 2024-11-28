@@ -33,7 +33,7 @@ public class GenerateRootCrop implements MenuAction {
     public void execute(UserInputChoice choice) {
 
         if (choice == UserInputChoice.ACTION_ROOTCROP_MANUAL_GENERATED) {
-            messagePrinter.printMessage("Введите данные для автомобиля. Для завершения ввода введите 'exit' в поле модели.");
+            messagePrinter.printMessage("Введите данные для корнеплода. Для завершения ввода введите 'exit' в поле типа.");
 
             //loop through all rootCrops that user inputs
             while (true) {
