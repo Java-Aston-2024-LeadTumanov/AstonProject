@@ -1,6 +1,7 @@
 package ru.aston.sort_app.dao;
 
 import ru.aston.sort_app.core.Book;
+import ru.aston.sort_app.services.validators.BookValidator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,6 +25,12 @@ public class BookFileDAO implements FileDAO<Book> {
 
             while (listSize < amount && ((line = br.readLine()) != null)) {
                 String[] values = line.split(";");
+
+                if (!BookValidator.validateAuthor(values[0]) ||
+                        !BookValidator.validateTitle(values[1]) ||
+                        !BookValidator.validatePageCount(values[2]))
+                    continue;
+
                 Book book = new Book.Builder()
                         .setAuthor(values[0])
                         .setTitle(values[1])

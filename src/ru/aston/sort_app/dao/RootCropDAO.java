@@ -5,8 +5,7 @@ import ru.aston.sort_app.core.RootCrop;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import ru.aston.sort_app.dao.FileDAO;
-
+import ru.aston.sort_app.services.validators.RootCropValidator;
 
 
 public class RootCropDAO implements FileDAO<RootCrop>{
@@ -25,6 +24,13 @@ public class RootCropDAO implements FileDAO<RootCrop>{
             String line;
             int count = 0;
             while ((line = br.readLine()) != null) {
+
+                String[] values = line.split(",");
+                if (!RootCropValidator.validateType(values[0]) ||
+                        !RootCropValidator.validateWeight(values[1]) ||
+                        !RootCropValidator.validateColor(values[2]))
+                    continue;
+
                 RootCrop rootCrop = parseLine(line);
                 if (rootCrop != null) {
                     rootCrops.add(rootCrop);

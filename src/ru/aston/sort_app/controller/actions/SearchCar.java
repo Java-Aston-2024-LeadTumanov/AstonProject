@@ -4,6 +4,7 @@ import ru.aston.sort_app.controller.MenuAction;
 import ru.aston.sort_app.core.Car;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.services.Service;
+import ru.aston.sort_app.services.validators.CarValidator;
 import ru.aston.sort_app.view.MessagePrinter;
 import ru.aston.sort_app.view.Reader;
 
@@ -25,15 +26,39 @@ public class SearchCar implements MenuAction {
 
     @Override
     public void execute(UserInputChoice choice) {
+        String model;
+        int power;
+        int year;
+
         messagePrinter.printMessage("Введите данные для автомобиля: ");
-        System.out.println("Введите модель:");
-        String model = reader.getStringInput();
 
-        messagePrinter.printMessage("Введите мощность:");
-        int power = Integer.parseInt(reader.getStringInput());
+        do {
+            messagePrinter.printMessage("Введите модель:");
+            model = reader.getStringInput();
+            if (CarValidator.validateModel(model))
+                break;
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
 
-        messagePrinter.printMessage("Введите год:");
-        int year = Integer.parseInt(reader.getStringInput());
+        do {
+            messagePrinter.printMessage("Введите мощност:");
+            String powerStr = reader.getStringInput();
+            if (CarValidator.validatePower(powerStr)) {
+                power = Integer.parseInt(powerStr);
+                break;
+            }
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
+
+        do {
+            messagePrinter.printMessage("Введите год:");
+            String yearStr = reader.getStringInput();
+            if (CarValidator.validateYear(yearStr)) {
+                year = Integer.parseInt(yearStr);
+                break;
+            }
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
 
         Car car = new Car.Builder()
                 .setModel(model)

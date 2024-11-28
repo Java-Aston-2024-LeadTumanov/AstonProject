@@ -4,6 +4,7 @@ import ru.aston.sort_app.controller.MenuAction;
 import ru.aston.sort_app.core.Book;
 import ru.aston.sort_app.core.UserInputChoice;
 import ru.aston.sort_app.services.Service;
+import ru.aston.sort_app.services.validators.BookValidator;
 import ru.aston.sort_app.view.MessagePrinter;
 import ru.aston.sort_app.view.Reader;
 
@@ -24,15 +25,37 @@ public class SearchBook implements MenuAction {
 
     @Override
     public void execute(UserInputChoice choice) {
+        String title;
+        String author;
+        int pageCount;
+
         messagePrinter.printMessage("Введите данные для поиска книги: ");
-        messagePrinter.printMessage("Введите название:");
-        String title = reader.getStringInput();
 
-        messagePrinter.printMessage("Введите автора:");
-        String author = reader.getStringInput();
+        do {
+            messagePrinter.printMessage("Введите название:");
+            title = reader.getStringInput();
+            if (BookValidator.validateTitle(title))
+                break;
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
 
-        messagePrinter.printMessage("Введите количество страниц:");
-        int pageCount = Integer.parseInt(reader.getStringInput());
+        do {
+            messagePrinter.printMessage("Введите автора:");
+            author = reader.getStringInput();
+            if (BookValidator.validateAuthor(author))
+                break;
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
+
+        do {
+            messagePrinter.printMessage("Введите количество страниц:");
+            String pageCountStr = reader.getStringInput();
+            if (BookValidator.validatePageCount(pageCountStr)) {
+                pageCount = Integer.parseInt(pageCountStr);
+                break;
+            }
+            else messagePrinter.printMessage("Данные не прошли валидацию");
+        } while (true);
 
         Book book = new Book.Builder()
                 .setTitle(title)

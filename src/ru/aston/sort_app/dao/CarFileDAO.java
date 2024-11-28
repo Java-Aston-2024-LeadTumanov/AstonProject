@@ -1,6 +1,7 @@
 package ru.aston.sort_app.dao;
 
 import ru.aston.sort_app.core.Car;
+import ru.aston.sort_app.services.validators.CarValidator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,6 +24,12 @@ public class CarFileDAO implements FileDAO<Car> {
 
             while (listSize < amount && ((line = br.readLine()) != null)) {
                 String[] values = line.split(";");
+
+                if (!CarValidator.validatePower(values[0]) ||
+                        !CarValidator.validateModel(values[1]) ||
+                        !CarValidator.validateYear(values[2]))
+                    continue;
+
                 Car car = new Car.Builder()
                         .setPower(Integer.parseInt(values[0]))
                         .setModel(values[1])
